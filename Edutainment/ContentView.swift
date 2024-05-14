@@ -187,8 +187,10 @@ struct ContentView: View {
                                 Spacer()
                                 
                                 Button {
-                                    showOptions = false
-                                    generateAnswers()
+                                    withAnimation{
+                                        showOptions = false
+                                        generateAnswers()
+                                    }
                                 } label: {
                                     Text("Aceptar")                                .withTextStyle(showLeoncitoOrGatito)
                                 }
@@ -201,7 +203,10 @@ struct ContentView: View {
                             HStack {
                                 Spacer()
                                 Button {
-                                    showLeoncitoOrGatito.toggle()
+                                    withAnimation{
+                                        showLeoncitoOrGatito.toggle()
+                                    }
+                                    
                                     withAnimation (.spring(duration: 1, bounce: 0.5)) {
                                         rotationAmount += 360
                                     }
@@ -259,9 +264,8 @@ struct ContentView: View {
                                     }
                                     .animation(.easeIn(duration: 0.5), value: answers)
                                     .rotation3DEffect(.degrees(Double(rotationAmount)),
-                                                      axis: (x: 1.0, y: 1.0, z: -1.0))
+                                                      axis: (x: -1.0, y: -1.0, z: -1.0))
                                     
-                                
                                 Spacer()
                             }
                             
@@ -307,15 +311,19 @@ struct ContentView: View {
             .toolbar {
                 if !showOptions {
                     Button ("Options") {
-                        showOptions = true
-                        newGame()
+                        withAnimation{
+                            showOptions = true
+                            newGame()
+                        }
                     }
                     .withTextStyle(showLeoncitoOrGatito)
                 }
             }
             .alert(messageTitle, isPresented: $showAlert) {
                 Button ("Ok") {
-                    newGame()
+                    withAnimation{
+                        newGame()
+                    }
                 }
             } message: {
                 Text("Your score is: \(score)")
